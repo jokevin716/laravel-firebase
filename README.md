@@ -1,66 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Laravel 10 Auth + OTP + Marketstack Dashboard
 
-## About Laravel
+A Laravel 10 demo app with the following features:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🔧 Tech Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Laravel 10**
+- **MySQL**
+- **PHP 8.2**
+- **Firebase Authentication (Google SSO)**
+- **Email/Password Auth with reCAPTCHA**
+- **PHPMailer for OTP over Gmail**
+- **Marketstack Stock API (cURL only)**
+- **Chart.js for visualizing stock data**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- 🔐 **Google SSO (Firebase)**
+  - Only allows login for emails under the `@bongbong.my.id` domain.
+- 🧠 **Email/Password Login with Google reCAPTCHA**
+- 📩 **Email OTP via PHPMailer (Gmail SMTP)**
+- 📊 **Stock Price & Volume Visualization (via Marketstack)**
+- 🧵 **No Guzzle / Laravel HTTP Client used – only native cURL**
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ Setup Instructions
 
-## Laravel Sponsors
+### 1. Clone & Install Dependencies
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```bash
+git clone https://github.com/jokevin716/laravel-firebase.git
+cd laravel-firebase
+composer install
+cp .env.example .env
+php artisan key:generate
+```
 
-### Premium Partners
+### 2. Configure `.env`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+```env
+# Mail (Use App Password from Gmail)
+MAIL_USERNAME=your@gmail.com
+MAIL_PASSWORD=your_app_password
 
-## Contributing
+# reCAPTCHA
+RECAPTCHA_SITE_KEY=your_site_key
+RECAPTCHA_SECRET_KEY=your_secret_key
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Firebase Config (frontend use only)
+FIREBASE_API_KEY=...
+FIREBASE_AUTH_DOMAIN=...
+FIREBASE_PROJECT_ID=...
+FIREBASE_MESSAGING_SENDER_ID=...
 
-## Code of Conduct
+# Marketstack
+MARKETSTACK_KEY=your_marketstack_key
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+### 3. Database
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan migrate
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Start the App
+
+```bash
+php artisan serve
+```
+
+---
+
+## 🧪 Testing
+
+- ✅ **Email/Password**: Login via form with reCAPTCHA
+- ✅ **Firebase SSO**: Login via Google using Firebase SDK (`public/js/firebase-auth.js`)
+- ✅ **OTP Email**: Triggers PHPMailer sending via Gmail SMTP
+- ✅ **Marketstack**: Fetches stock data using raw `cURL` and displays via Chart.js
+
+---
+
+## 📁 Folder Structure (Highlights)
+
+```
+├── app
+│   ├── Http/Controllers
+│   │   ├── AuthController.php
+│   │   └── DashboardController.php
+│   └── Models
+│   │   ├── Otp.php
+│   │   └── User.php
+│   └── Services
+│   │   ├── CaptchaService.php
+│   │   ├── FirebaseService.php
+│   │   ├── MarketstackService.php
+│   │   └── OtpService.php
+├── resources/views
+│   ├── auth/
+│   │   ├── login.blade.php
+│   │   └── register.blade.php
+│   ├── layouts/
+│   │   └── app.blade.php
+│   ├── dashboard.blade.php
+│   └── welcome.blade.php
+├── routes/web.php
+```
+
+---
+
+## 📌 Notes
+
+- Firebase Auth must be domain-restricted server-side (`@bongbong.my.id`)
+- Marketstack free tier is **rate limited (HTTP 429)** — avoid spamming it
+- Use [Chart.js adapter for `date-fns`](https://www.chartjs.org/chartjs-plugin-zoom/latest/guide/integrations.html#date-fns) for proper time formatting
+
