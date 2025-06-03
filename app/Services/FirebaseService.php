@@ -36,7 +36,9 @@ class FirebaseService {
     }
 
     public function isValidDomain(string $email): bool {
-        // return str_ends_with(strtolower($email), '@bongbong.my.id');
-        return str_ends_with(strtolower($email), '@bongbong.my.id') || str_ends_with(strtolower($email), '@gmail.com');
+        return str_ends_with(strtolower($email), '@bongbong.my.id');
+
+        // internal testing purpose only
+        // return str_ends_with(strtolower($email), '@bongbong.my.id') || str_ends_with(strtolower($email), '@gmail.com');
     }
 }

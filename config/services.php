@@ -36,4 +36,12 @@ return [
         'api_key' => env('MARKETSTACK_API_KEY'),
         'base_url' => 'http://api.marketstack.com/v1/',
     ],
+    'firebase_cfg' => [
+        'api_key' => env('API_KEY'),
+        'auth_domain' => env('AUTH_DOMAIN'),
+        'project_id' => env('PROJECT_ID'),
+        'storage_bucket' => env('STORAGE_BUCKET'),
+        'message_id' => env('MESSAGE_ID'),
+        'app_id' => env('APP_ID'),
+    ]
 ];

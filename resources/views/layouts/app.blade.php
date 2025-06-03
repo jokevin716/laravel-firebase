@@ -14,12 +14,12 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js';
 
         const firebaseConfig = {
-            apiKey: "AIzaSyDVspWUBs2TgY7E5KJjwnbSle3-WGB7psY",
-            authDomain: "laravel-firebase-app-26131.firebaseapp.com",
-            projectId: "laravel-firebase-app-26131",
-            storageBucket: "laravel-firebase-app-26131.firebasestorage.app",
-            messagingSenderId: "654332039738",
-            appId: "1:654332039738:web:6cdb0874e8fe1e6e0c9b03"
+            apiKey: "{{ config('services.firebase_cfg.api_key') }}",
+            authDomain: "{{ config('services.firebase_cfg.auth_domain') }}",
+            projectId: "{{ config('services.firebase_cfg.project_id') }}",
+            storageBucket: "{{ config('services.firebase_cfg.storage_bucket') }}",
+            messagingSenderId: "{{ config('services.firebase_cfg.message_id') }}",
+            appId: "{{ config('services.firebase_cfg.app_id') }}"
         };
 
         window.firebaseApp = initializeApp(firebaseConfig);
